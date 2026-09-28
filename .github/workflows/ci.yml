@@ -39,3 +39,22 @@ jobs:
           select-by-tag: Unit
           code-coverage-cobertura: coverage.xml
           generate-summary: true
+  package:
+    name: Build toolbox
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          cache: true
+      - name: Package and test the toolbox
+        uses: matlab-actions/run-build@v2
+        with:
+          tasks: package
+      - name: Upload toolbox
+        uses: actions/upload-artifact@v4
+        with:
+          name: demopackage-toolbox
+          path: release/demopackage.mltbx

@@ -7,6 +7,7 @@ function runTests()
 
     root_dir = fileparts(mfilename('fullpath'));
     src_dir = fullfile(root_dir, '../src');
+    api_dir = fullfile(root_dir, '../api');
     tests_dir = fullfile(root_dir, '../tests');
     report_dir = fullfile(root_dir, '../htmlcov');
     coverage_file = fullfile(root_dir, '../coverage.xml');
@@ -15,7 +16,7 @@ function runTests()
     runner = testrunner('textoutput');
 
     coverage_plugin = CodeCoveragePlugin.forFolder( ...
-        src_dir, ...
+        {src_dir, api_dir}, ...
         'IncludingSubfolders', true, ...
         'Producing', [CoverageReport(report_dir), CoberturaFormat(coverage_file)]);
     runner.addPlugin(coverage_plugin);
